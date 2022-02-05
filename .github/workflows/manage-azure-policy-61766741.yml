@@ -1,0 +1,40 @@
+name: manage-azure-policy-61766741
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'initiatives/Deploy_Diagnostic_Settings_for_Azure_Virtual_Desktop_Resources_to_Log_Analytics_workspace_9431633098654072926916e7/**'
+#      - 'policies/Deploy_Diagnostic_Settings_for_Windows_Virtual_Desktop_Application_Groups_to_Log_Analytics_workspace_052e6e9c-88e8-4309-b872-83559a325482/**'
+#      - 'policies/Deploy_Diagnostic_Settings_for_Windows_Virtual_Desktop_Host_Pools_to_Log_Analytics_workspace_052e6e9c-88e8-4309-b872-83559a32548c/**'
+#      - 'policies/Deploy_Diagnostic_Settings_for_Windows_Virtual_Desktop_Workspaces_to_Log_Analytics_workspace_052e6e9c-88e8-4309-b872-83559a325496/**'
+#      - 'policies/Deploy_-_Configure_Log_Analytics_extension_to_be_enabled_on_Windows_virtual_machines_0868462e-646c-4fe3-9ced-a733534b6a2c/**'
+#      - .github/workflows/manage-azure-policy-61766741.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_61766741}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          initiatives/Deploy_Diagnostic_Settings_for_Azure_Virtual_Desktop_Resources_to_Log_Analytics_workspace_9431633098654072926916e7/**
+          policies/Deploy_Diagnostic_Settings_for_Windows_Virtual_Desktop_Application_Groups_to_Log_Analytics_workspace_052e6e9c-88e8-4309-b872-83559a325482/**
+          policies/Deploy_Diagnostic_Settings_for_Windows_Virtual_Desktop_Host_Pools_to_Log_Analytics_workspace_052e6e9c-88e8-4309-b872-83559a32548c/**
+          policies/Deploy_Diagnostic_Settings_for_Windows_Virtual_Desktop_Workspaces_to_Log_Analytics_workspace_052e6e9c-88e8-4309-b872-83559a325496/**
+          policies/Deploy_-_Configure_Log_Analytics_extension_to_be_enabled_on_Windows_virtual_machines_0868462e-646c-4fe3-9ced-a733534b6a2c/**
